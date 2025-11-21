@@ -17,10 +17,12 @@ const loginUser = asyncHandler(async(req, res) => {
     }
 });
 
+//@route GET /register
 const getRegister = (req, res) => {
     res.render("register");
 };
 
+//@route POST /register
 const registerUser = asyncHandler(async(req, res) => {
     const { username, password, password2 } = req.body;
 
@@ -28,7 +30,6 @@ const registerUser = asyncHandler(async(req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({username, password: hashedPassword});
         res.status(201).json({ message: "Register successful", user });
-        
     } else {
         res.send("Register Failed");
     }
